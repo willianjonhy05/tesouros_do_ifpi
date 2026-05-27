@@ -12,6 +12,7 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from .utils import validar_cpf, formatar_cpf, limpar_cpf
 from django.contrib.auth import get_user_model
+import logging
 User = get_user_model()
 
 FORM_CATEGORIAS = {
@@ -272,10 +273,16 @@ def votar(request, uuid):
         "form": form,
         "voto": voto
     })
-
+logger = logging.getLogger(__name__)
 def index(request):
-    fotos = Foto.objects.filter(ativo=True).order_by('-criado_em')
-    
+    try:
+        # Busca apenas as fotos ativas, ordenando das mais recentes para as mais antigas
+        fotos = Foto.objects.filter(ativo=True).order_by('-criado_em')
+    except Exception as e:
+        # Registra o erro no log do servidor com detalhes
+        logger.error(f"Erro ao buscar fotos no banco de dados: {e}")
+        fotos = Foto.objects.none()  # Retorna um QuerySet vazio seguro em vez de uma lista []
+
     context = {
         "fotos": fotos
     }
