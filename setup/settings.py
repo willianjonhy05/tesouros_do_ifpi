@@ -27,23 +27,21 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default='False', cast=bool)
 
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = [
-    "https://tesourosdoifpi.vps7985.panel.icontainer.cloud",
-    "https://www.tesourosdoifpi.vps7985.panel.icontainer.cloud",
-    "127.0.0.1",
-    "localhost",
-]
+# ALLOWED_HOSTS = [
+#     "https://tesourosdoifpi.vps7985.panel.icontainer.cloud",
+#     "https://www.tesourosdoifpi.vps7985.panel.icontainer.cloud",
+#     "127.0.0.1",
+#     "localhost",
+# ]
 
 
 AUTH_USER_MODEL = 'tesouros_do_ifpi.Usuario'  # Substitua 'tesouros_do_ifpi' pelo nome do seu app onde o modelo Usuario está definido
 
 
 
-
-
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
+# CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 
 
 # Application definition
@@ -93,25 +91,25 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': config('DB_ENGINE'),
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#     }
+# }
 
 
 # Password validation
